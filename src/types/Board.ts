@@ -3,4 +3,6 @@ export interface Board {
     title: string;
     nickname: string;
     commentCount: number;
+    content?: string;
+    comments?: Comment[];
 }

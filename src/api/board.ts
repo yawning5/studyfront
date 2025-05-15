@@ -7,3 +7,8 @@ export const fetchBoards = async (): Promise<Board[]> => {
     const response = await axios.get(`${BASE_URL}/board`);
     return response.data;
 };
+
+export const fetchBoardById = async (id: number): Promise<Board> => {
+    const response = await axios.get(`${BASE_URL}/board/${id}`);
+    return response.data;
+}

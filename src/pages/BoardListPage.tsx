@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";    
 import { fetchBoards } from "../api/board";
 import type { Board } from "../types/Board";   
+import { Link } from "react-router-dom";
 
 function BoardListPage() {
     const [boards, setBoards] = useState<Board[]>([]);
@@ -27,7 +28,9 @@ function BoardListPage() {
                     {boards.map((board) => (
                         <tr key={board.id}>
                             <td>{board.id}</td>
-                            <td>{board.title}</td>
+                            <td>
+                                <Link to={`/boards/${board.id}`}>{board.title}</Link>
+                            </td>
                             <td>{board.nickname}</td>
                             <td>{board.commentCount}</td>
                         </tr>
