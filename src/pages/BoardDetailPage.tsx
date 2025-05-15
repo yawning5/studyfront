@@ -15,6 +15,10 @@ function BoardDetailPage() {
         }
     }, [id]);
 
+    if (!id|| isNaN(Number(id))) {
+        return <div>잘못된 요청입니다.</div>;   
+    }
+    
     if (!board) {
         return <div>Loading...</div>;
     }

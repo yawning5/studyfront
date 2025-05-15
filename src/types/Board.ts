@@ -6,3 +6,8 @@ export interface Board {
     content?: string;
     comments?: Comment[];
 }
+
+export interface BoardWriteInput {
+    title: string;
+    content: string;
+}
