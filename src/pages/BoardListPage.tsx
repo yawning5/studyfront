@@ -29,7 +29,7 @@ function BoardListPage() {
                         <tr key={board.id}>
                             <td>{board.id}</td>
                             <td>
-                                <Link to={`/boards/${board.id}`}>{board.title}</Link>
+                                <Link to={`/board/${board.id}`}>{board.title}</Link>
                             </td>
                             <td>{board.nickname}</td>
                             <td>{board.commentCount}</td>

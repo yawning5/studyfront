@@ -11,14 +11,16 @@ import BoardListPage from './pages/BoardListPage';
 import BoardDetailPage from './pages/BoardDetailPage';
 import BoardWritePage from "./pages/BoardWritePage";
 import LoginPage from "./pages/LoginPage";
+import BoardEditPage from "./pages/BoardEditPage";
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/boards/write" element={<BoardWritePage />} />
-                <Route path="/boards/:id" element={<BoardDetailPage />} />
+                <Route path="/board/write" element={<BoardWritePage />} />
+                <Route path="/board/:id/edit" element={<BoardEditPage />} />
+                <Route path="/board/:id" element={<BoardDetailPage />} />
                 <Route path="/boards" element={<BoardListPage />} />
             </Routes>
         </Router>

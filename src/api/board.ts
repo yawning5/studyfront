@@ -12,9 +12,17 @@ export const fetchBoards = async (): Promise<Board[]> => {
 export const fetchBoardById = async (id: number): Promise<Board> => {
     const response = await axios.get(`${BASE_URL}/board/${id}`);
     return response.data;
-}
+};
 
 export async function postBoard(data: BoardWriteInput): Promise<Board> {
     const response = await axios.post(`${BASE_URL}/board`, data);
     return response.data;
-}
+};
+
+export const patchBoard = async (id: number, data: BoardWriteInput): Promise<void> => {
+    await axios.patch(`${BASE_URL}/board/${id}`, data);
+};
+
+export const deleteBoard = async (id: number): Promise<void> => {
+    await axios.delete(`${BASE_URL}/board/${id}`);
+};
