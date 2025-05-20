@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { login } from "../api/auth";
+import { setAuthToken } from "../api/auth";
 import type { LoginInput } from "../types/Auth";
 
 
 function LoginPage() {
+
     const [form, setForm] = useState<LoginInput>({
         id: "",
         password: "",
@@ -22,6 +24,7 @@ function LoginPage() {
             const response = await login(form);
             console.log("Login successful", response);
             localStorage.setItem("accessToken", response.accessToken);
+            setAuthToken(response.accessToken);
             alert("Login successful");
             // Handle successful login (e.g., redirect to another page, store token, etc.)
         } catch (error) {
