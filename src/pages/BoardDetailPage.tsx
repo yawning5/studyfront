@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchBoardById } from "../api/board";
+import { postComment } from "../api/comment";
 import type { Board } from "../types/Board";
 import { deleteBoard } from "../api/board";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,25 @@ function BoardDetailPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const [board, setBoard] = useState<Board | null>(null);
+
+    const [commentInput, setCommentInput] = useState("");
+    const handleCommentSubmit = async () => {
+        if (!commentInput.trim() || !id) return;
+
+        try {
+            console.log("전송할 boardId:", id);
+            await postComment(Number(id), { content: commentInput });
+            setCommentInput("");
+
+            // 댓글 추가 후 게시글 다시 조회
+            const updated = await fetchBoardById(Number(id));
+            setBoard(updated);
+        } catch (error) {
+            console.error("댓글 추가 실패:", error);
+            alert("댓글 추가에 실패했습니다.");
+        }   
+    };
+    
 
     const handleDelete = async () => {
         console.log("삭제 버튼 클릭");
@@ -50,6 +70,31 @@ function BoardDetailPage() {
             <h1>{board.title}</h1>
             <p>작성자: {board.nickname}</p>
             <p>{board.content}</p>
+
+            {/* 댓글 목록 */}
+            {board.comments && board.comments.length > 0 && (
+                <div>
+                    <h3>댓글</h3>
+                    <ul>
+                        {board.comments.map((comment) => (
+                            <li key={comment.id}>
+                                <strong>{comment.nickname}</strong>: {comment.content}
+                            </li>
+                        ))}
+                        </ul>
+                </div>
+            )}
+            {/* 댓글 입력 */}
+            <div>
+                <h4>댓글 작성</h4>
+                <textarea
+                    value={commentInput}
+                    onChange={(e) => setCommentInput(e.target.value)}
+                    placeholder="댓글을 입력하세요"
+                    /><br />
+                <button onClick={handleCommentSubmit}>댓글 작성</button>
+            </div>
+            {/* 삭제 버튼 */}
             <button onClick={handleDelete}>삭제</button>
         </div>
     );
