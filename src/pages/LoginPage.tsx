@@ -3,7 +3,7 @@ import { login } from "../api/auth";
 import { setAuthToken } from "../api/auth";
 import type { LoginInput } from "../types/Auth";
 import Button from "../components/Button";
-import Input from "../components/Input";
+import Input from "../components/input";
 
 
 function LoginPage() {
