@@ -6,6 +6,7 @@ import type { Board } from "../types/Board";
 import { deleteBoard } from "../api/board";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import Textarea from "../components/Textarea";
 
 function BoardDetailPage() {
     const navigate = useNavigate();
@@ -88,7 +89,7 @@ function BoardDetailPage() {
             {/* 댓글 입력 */}
             <div>
                 <h4>댓글 작성</h4>
-                <textarea
+                <Textarea
                     value={commentInput}
                     onChange={(e) => setCommentInput(e.target.value)}
                     placeholder="댓글을 입력하세요"

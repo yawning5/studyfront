@@ -3,6 +3,7 @@ import { login } from "../api/auth";
 import { setAuthToken } from "../api/auth";
 import type { LoginInput } from "../types/Auth";
 import Button from "../components/Button";
+import Input from "../components/Input";
 
 
 function LoginPage() {
@@ -39,13 +40,13 @@ function LoginPage() {
         <div>
             <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
-                <input
+                <Input
                     name="id"
                     value={form.id}
                     onChange={handleChange}
                     placeholder="아이디"
                     /><br />
-                <input
+                <Input
                     name="password"
                     type="password"
                     value={form.password}

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { postBoard } from "../api/board";
 import type { BoardWriteInput } from "../types/Board";
 import Button from "../components/Button";
+import Textarea from "../components/Textarea";
+import Input from "../components/input";
 
 function BoardWritePage() {
     const [form, setForm] = useState<BoardWriteInput>({
@@ -32,13 +34,13 @@ function BoardWritePage() {
         <div>
             <h2>게시글 작성</h2>
             <form onSubmit={handleSubmit}>
-                <input
+                <Input
                 name="title"
                 value={form.title}
                 onChange={handleChange}
                 placeholder="제목"
                 /><br />
-                <textarea
+                <Textarea
                 name="content"
                 value={form.content}
                 onChange={handleChange}
