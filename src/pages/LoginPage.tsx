@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../api/auth";
 import { setAuthToken } from "../api/auth";
 import type { LoginInput } from "../types/Auth";
+import Button from "../components/Button";
 
 
 function LoginPage() {
@@ -51,7 +52,7 @@ function LoginPage() {
                     onChange={handleChange}
                     placeholder="비밀번호"
                     /><br />
-                    <button type="submit">로그인</button>
+                    <Button type="submit">로그인</Button>
             </form>
         </div>
     );

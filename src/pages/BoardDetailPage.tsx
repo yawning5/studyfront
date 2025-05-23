@@ -5,6 +5,7 @@ import { postComment } from "../api/comment";
 import type { Board } from "../types/Board";
 import { deleteBoard } from "../api/board";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 function BoardDetailPage() {
     const navigate = useNavigate();
@@ -92,10 +93,10 @@ function BoardDetailPage() {
                     onChange={(e) => setCommentInput(e.target.value)}
                     placeholder="댓글을 입력하세요"
                     /><br />
-                <button onClick={handleCommentSubmit}>댓글 작성</button>
+                <Button onClick={handleCommentSubmit}>댓글 작성</Button>
             </div>
             {/* 삭제 버튼 */}
-            <button onClick={handleDelete}>삭제</button>
+            <Button onClick={handleDelete}>삭제</Button>
         </div>
     );
 }

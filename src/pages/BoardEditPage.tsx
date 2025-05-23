@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchBoardById, patchBoard } from "../api/board";
 import type { Board, BoardWriteInput } from "../types/Board";
+import Button from "../components/Button";
 
 function BoardEditPage() {
     const { id } = useParams();
@@ -62,7 +63,7 @@ function BoardEditPage() {
                     onChange={handleChange}
                     placeholder="내용"
                 /><br />
-                <button type="submit">수정하기</button>
+                <Button type="submit">수정하기</Button>
             </form>
         </div>
     );

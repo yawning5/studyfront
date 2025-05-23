@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { postBoard } from "../api/board";
 import type { BoardWriteInput } from "../types/Board";
+import Button from "../components/Button";
 
 function BoardWritePage() {
     const [form, setForm] = useState<BoardWriteInput>({
@@ -43,7 +44,7 @@ function BoardWritePage() {
                 onChange={handleChange}
                 placeholder="내용"
                 /><br />
-                <button type="submit">작성</button>
+                <Button type="submit">작성</Button>
             </form>
         </div>
     );
