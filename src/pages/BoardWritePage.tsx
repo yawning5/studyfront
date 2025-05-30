@@ -3,7 +3,7 @@ import { postBoard } from "../api/board";
 import type { BoardWriteInput } from "../types/Board";
 import Button from "../components/Button";
 import Textarea from "../components/Textarea";
-import Input from "../components/input";
+import Input from "../components/Input";
 
 function BoardWritePage() {
     const [form, setForm] = useState<BoardWriteInput>({
