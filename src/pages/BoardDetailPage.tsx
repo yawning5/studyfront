@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchBoardById } from "../api/board";
 import { postComment } from "../api/comment";
 import type { Board } from "../types/Board";
@@ -11,7 +12,7 @@ import Textarea from "../components/Textarea";
 function BoardDetailPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
-    const [board, setBoard] = useState<Board | null>(null);
+    // const [board, setBoard] = useState<Board | null>(null);
 
     const [commentInput, setCommentInput] = useState("");
     const handleCommentSubmit = async () => {
@@ -23,14 +24,18 @@ function BoardDetailPage() {
             setCommentInput("");
 
             // 댓글 추가 후 게시글 다시 조회
-            const updated = await fetchBoardById(Number(id));
-            setBoard(updated);
+            // const updated = await fetchBoardById(Number(id));
+            // setBoard(updated);
+            
+            // React Query를 사용하여 게시글을 다시 가져오도록 트리거
+            refetch(); // useQuery의 refetch 메서드 사용
+            alert("댓글이 추가되었습니다.");
         } catch (error) {
             console.error("댓글 추가 실패:", error);
             alert("댓글 추가에 실패했습니다.");
-        }   
+        }
     };
-    
+
 
     const handleDelete = async () => {
         console.log("삭제 버튼 클릭");
@@ -51,13 +56,26 @@ function BoardDetailPage() {
 
     }
 
-    useEffect(() => {
-        if (id) {
-            fetchBoardById(Number(id))
-                .then((data) => setBoard(data))
-                .catch((error) => console.error("상세 조회 실패:", error));
-        }
-    }, [id]);
+    // useEffect(() => {
+    //     if (id) {
+    //         fetchBoardById(Number(id))
+    //             .then((data) => setBoard(data))
+    //             .catch((error) => console.error("상세 조회 실패:", error));
+    //     }
+    // }, [id]);
+
+    const {
+        data: board,
+        isLoading,
+        isError,
+        error,
+        refetch,
+    } = useQuery<Board>({
+        queryKey: ["board", id],
+        queryFn: () => fetchBoardById(Number(id)),
+        enabled: !!id,
+    });
+
 
     if (!id || isNaN(Number(id))) {
         return <div>잘못된 요청입니다.</div>;
@@ -83,7 +101,7 @@ function BoardDetailPage() {
                                 <strong>{comment.nickname}</strong>: {comment.content}
                             </li>
                         ))}
-                        </ul>
+                    </ul>
                 </div>
             )}
             {/* 댓글 입력 */}
@@ -93,7 +111,7 @@ function BoardDetailPage() {
                     value={commentInput}
                     onChange={(e) => setCommentInput(e.target.value)}
                     placeholder="댓글을 입력하세요"
-                    /><br />
+                /><br />
                 <Button onClick={handleCommentSubmit}>댓글 작성</Button>
             </div>
             {/* 삭제 버튼 */}

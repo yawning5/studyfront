@@ -4,7 +4,7 @@ import { fetchMyInfo } from "../api/member";
 import { setAuthToken } from "../api/auth";
 import type { LoginInput } from "../types/Auth";
 import Button from "../components/Button";
-import Input from "../components/input";
+import Input from "../components/Input";
 import useUserStore from "../stores/useUserStore";
 
 

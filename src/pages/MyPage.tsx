@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchMyInfo } from '../api/member';
 import type { MemberInfo } from '../types/Member';
+import useUserStore from '../stores/useUserStore';
 
 function MyPage() {
     const [me, setMe] = useState<MemberInfo | null>(null);
