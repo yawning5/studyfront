@@ -1,19 +1,32 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchMyInfo } from '../api/member';
 import type { MemberInfo } from '../types/Member';
 import useUserStore from '../stores/useUserStore';
 
 function MyPage() {
-    const [me, setMe] = useState<MemberInfo | null>(null);
 
-    useEffect(() => {
-        fetchMyInfo()
-            .then(setMe)
-            .catch((error) => {
-                console.error("Failed to fetch member info:", error);
-                alert("Failed to fetch member info");
-            });
-    }, []);
+    // useQuery로 대체되는 내용
+    // const [me, setMe] = useState<MemberInfo | null>(null);
+
+    // useEffect(() => {
+    //     fetchMyInfo()
+    //         .then(setMe)
+    //         .catch((error) => {
+    //             console.error("Failed to fetch member info:", error);
+    //             alert("Failed to fetch member info");
+    //         });
+    // }, []);
+
+    const {
+        data: me,
+        isLoading,
+        isError,
+        error,
+    } = useQuery<MemberInfo>({
+        queryKey: ['myInfo'],
+        queryFn: fetchMyInfo,
+    });
 
     if (!me) {
         return <div>Loading...</div>;
