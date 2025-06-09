@@ -17,6 +17,8 @@ function LoginPage() {
         password: "",
     });
 
+    const { setUser } = useUserStore(); // zustnand 훅
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
             ...form,
@@ -28,7 +30,12 @@ function LoginPage() {
         e.preventDefault();
         try {
 
-            const { setUser } = useUserStore(); // zustnand 훅
+            /*
+            훅은 꼭 컴포넌트 최상단에서만 호출해야함
+            (컴포넌트 -> 화면의 한 조각을 코드로 만든 함수)
+            (훅 -> use로 시작하는 함수로, 컴포넌트 내부에서 상태나 생명주기 등을 관리하기 위해 사용)
+            */
+            // const { setUser } = useUserStore(); // zustnand 훅
 
             const response = await login(form);
             console.log("Login successful", response);
