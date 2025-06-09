@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBoards } from "../api/board";
 import type { Board } from "../types/Board";   
 import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 function BoardListPage() {
     // const [boards, setBoards] = useState<Board[]>([]);
@@ -16,6 +17,8 @@ function BoardListPage() {
     const { data: boards = [], isLoading, isError, error } = useQuery<Board[]>({
         queryKey: ['boards'],
         queryFn: fetchBoards,
+        staleTime: 1000 * 60 * 5, // 5분 동안 데이터가 신선하다고 간주(5분동안은 새로고침 해도 API 호출 안함)
+        gcTime: 1000 * 60 * 10, // 10분간 다시 안 보면 캐시 삭제
     });
 
     if (isLoading) {
@@ -27,7 +30,7 @@ function BoardListPage() {
 
 
     return (
-        <div>
+        <Layout>
             <h2>게시판 목록</h2>
             <table border={1} cellPadding={8}>
                 <thead>
@@ -51,7 +54,7 @@ function BoardListPage() {
                     ))}
                 </tbody>
             </table>
-        </div>
+        </Layout>
     );
 }
 

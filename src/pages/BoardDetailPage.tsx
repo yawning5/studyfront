@@ -8,6 +8,7 @@ import { deleteBoard } from "../api/board";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Textarea from "../components/Textarea";
+import axios from "axios";
 
 function BoardDetailPage() {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function BoardDetailPage() {
             // 댓글 추가 후 게시글 다시 조회
             // const updated = await fetchBoardById(Number(id));
             // setBoard(updated);
-            
+
             // React Query를 사용하여 게시글을 다시 가져오도록 트리거
             refetch(); // useQuery의 refetch 메서드 사용
             alert("댓글이 추가되었습니다.");
@@ -74,6 +75,7 @@ function BoardDetailPage() {
         queryKey: ["board", id],
         queryFn: () => fetchBoardById(Number(id)),
         enabled: !!id,
+        retry: false,
     });
 
 
@@ -84,6 +86,21 @@ function BoardDetailPage() {
     if (!board) {
         return <div>Loading...</div>;
     }
+
+    if (isError) {
+        if (axios.isAxiosError(error)) { // axios.isAxiosError(error) 를 통해 타입 좁히기를 해주는 게 포인트
+            if (error.response?.status === 404) {
+                return <div>존재하지 않는 게시글입니다.</div>;
+            }
+            if (error.response?.status === 401) {
+                alert("로그인이 필요합니다.");
+                navigate("/login");
+                return null;
+            }
+        }
+        return <div>게시글을 불러오는 중 오류가 발생했습니다.</div>;
+    }
+
 
     return (
         <div>
