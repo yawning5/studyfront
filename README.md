@@ -1,6 +1,6 @@
 studyfront - react 게시판 데모
 
-react + ts 기반의 게시판입니다
+react + ts 기반의 게시판입니다 </br>
 로그인 기반 인증, 게시글 crud, 댓글 작성, 마이페이지 기능구현
 
 - react + ts: 컴포넌트 기반 개발
