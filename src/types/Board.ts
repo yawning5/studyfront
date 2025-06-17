@@ -1,4 +1,4 @@
-import type { Comment } from './Comment';
+import type { Comment } from './Comment'; // 타입정의시 다른 타입이 필요할 경우 import
 
 export interface Board {
     id: number;
